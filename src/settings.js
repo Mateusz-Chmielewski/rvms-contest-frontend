@@ -3,3 +3,5 @@ export const apiHeader = {
 	Accept: "application/json",
 	"Content-Type": "application/json",
 };
+
+export const refreshTime = 2; //Minutes
