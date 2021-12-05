@@ -1,6 +1,7 @@
 import "./App.css";
 import { Container, Navbar, Nav } from "react-bootstrap";
 import logo from "./logo.svg";
+import Readings from "./Readings";
 
 function App() {
   return (
@@ -21,7 +22,8 @@ function App() {
             </Nav>
           </Navbar.Collapse>
         </Navbar>
-        <ion-icon name="information-circle"></ion-icon>
+
+        <Readings />
       </Container>
     </div>
   );
