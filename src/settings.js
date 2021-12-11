@@ -4,4 +4,4 @@ export const apiHeader = {
 	"Content-Type": "application/json",
 };
 
-export const refreshTime = 2; //Minutes
+export const refreshTime = 30; //SECONDS

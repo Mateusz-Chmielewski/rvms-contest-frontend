@@ -1,11 +1,11 @@
 .App {
-  background-color: #282c34;
-  text-align: center;
-  min-height: 100vh;
+	background-color: #282c34;
+	text-align: center;
+	min-height: 100vh;
 }
 
 .container {
-  /* max-width: 75rem !important; */
+	min-height: 100vh;
 }
 
 /* .App-logo {
@@ -30,7 +30,7 @@
 } */
 
 .App-link {
-  color: #61dafb;
+	color: #61dafb;
 }
 
 /* @keyframes App-logo-spin {

@@ -4,7 +4,7 @@ import { Row, Col } from "react-bootstrap";
 import "./Sensor.css";
 
 function Sensor(props) {
-	const [readings, setReadings] = useState([]);
+	// const [readings, setReadings] = useState([]);
 	const [air, setAir] = useState({
 		class: "air-error",
 		quality: "Nie aktywny",
@@ -12,20 +12,8 @@ function Sensor(props) {
 	});
 	const { id, roomName, isActive } = props;
 
-	const fetchData = () => {
-		console.log(`${apiUrl}/reading/${id}`);
-		fetch(`${apiUrl}/reading/${id}`, {
-			method: "GET",
-			headers: apiHeader,
-		})
-			.then((response) => response.json())
-			.then((data) => {
-				setReadings(data);
-				console.log(data);
-			});
-	};
-
-	useEffect(() => {
+	const validateData = (fetchedData) => {
+		console.log(fetchedData);
 		let tempAir = {};
 
 		if (!isActive) {
@@ -35,8 +23,8 @@ function Sensor(props) {
 				qualityClass: "d-none",
 			};
 		} else if (
-			readings.length < 1 ||
-			readings[readings.length - 1].quality === 0
+			fetchedData.length < 1 ||
+			fetchedData[fetchedData.length - 1].quality === 0
 		) {
 			tempAir = {
 				class: "air-error",
@@ -44,42 +32,62 @@ function Sensor(props) {
 				qualityClass: "d-none",
 			};
 		} else {
+			const qualities = fetchedData.map((read) => read.quality);
+			const times = fetchedData.map((read) => read.date);
+
 			tempAir = {
 				class: "air-ok",
-				quality: readings[readings.length - 1].quality,
-				temperature: readings[readings.length - 1].temperature,
+				quality: fetchedData[fetchedData.length - 1].quality,
+				temperature: fetchedData[fetchedData.length - 1].temperature,
+				data: qualities,
+				columns: times,
 			};
 
-			if (readings[readings.length - 1].quality > 1000) {
+			if (fetchedData[fetchedData.length - 1].quality > 1000) {
 				tempAir.class = "air-danger";
-			} else if (readings[readings.length - 1].quality > 400) {
+			} else if (fetchedData[fetchedData.length - 1].quality > 400) {
 				tempAir.class = "air-warn";
 			}
 		}
 
 		setAir(tempAir);
-	}, [readings]);
+	};
+
+	const fetchData = () => {
+		console.log(`${apiUrl}/reading/${id}`);
+		fetch(`${apiUrl}/reading/${id}`, {
+			method: "GET",
+			headers: apiHeader,
+		})
+			.then((response) => response.json())
+			.then((data) => {
+				validateData(data);
+			});
+	};
 
 	useEffect(() => {
 		fetchData();
 
-		setInterval(fetchData, refreshTime * 6 * 1000);
+		setInterval(fetchData, refreshTime * 1000);
 	}, [id]);
 
 	return (
 		<div className="sensor">
 			<Row>
-				<Col className="name">
+				<Col className="name" xs="4">
 					<h3>{roomName}</h3>
 				</Col>
-				<Col>
-					{air.temperature}
-					<span className={air.qualityClass}>&deg;C</span>
+				<Col className="name" xs="3">
+					<div>
+						{air.temperature}
+						<span className={air.qualityClass}>&deg;C</span>
+					</div>
 				</Col>
-				<Col>
+				<Col xs="5">
 					<div className={air.class}>
 						{air.quality}
 						<span className={air.qualityClass}>
+							{" "}
 							ppm CO<sub>2</sub>
 						</span>
 					</div>
