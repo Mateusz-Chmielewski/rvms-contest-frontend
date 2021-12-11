@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { validateData } from "./functions/validateData";
 import { refreshTime, readingsInterval, apiUrl, apiHeader } from "./settings";
 import { Row, Col } from "react-bootstrap";
 import "./Sensor.css";
+import { Line } from "react-chartjs-2";
+import { Chart as ChartJS } from "chart.js/auto";
 
 function Sensor(props) {
 	const [air, setAir] = useState({
@@ -11,53 +14,6 @@ function Sensor(props) {
 	});
 	const { id, roomName, isActive } = props;
 
-	const validateData = (fetchedData) => {
-		console.log(fetchedData);
-		let tempAir = {};
-
-		if (!isActive) {
-			tempAir = {
-				class: "air-error",
-				quality: "Nie aktywny",
-				qualityClass: "d-none",
-			};
-		} else if (
-			fetchedData.length < 1 ||
-			fetchedData[fetchedData.length - 1].quality === 0
-		) {
-			tempAir = {
-				class: "air-error",
-				quality: "Brak odczytu",
-				qualityClass: "d-none",
-			};
-		} else {
-			const qualities = fetchedData.map((read) => read.quality);
-			const times = fetchedData.map((read) =>
-				new Date(read.date).toLocaleTimeString(["pl"], {
-					hour: "2-digit",
-					minute: "2-digit",
-				})
-			);
-
-			tempAir = {
-				class: "air-ok",
-				quality: fetchedData[fetchedData.length - 1].quality,
-				temperature: fetchedData[fetchedData.length - 1].temperature,
-				data: qualities,
-				columns: times,
-			};
-
-			if (fetchedData[fetchedData.length - 1].quality > 1000) {
-				tempAir.class = "air-danger";
-			} else if (fetchedData[fetchedData.length - 1].quality > 400) {
-				tempAir.class = "air-warn";
-			}
-		}
-
-		console.log(tempAir);
-		setAir(tempAir);
-	};
-
 	const fetchData = () => {
 		fetch(`${apiUrl}/reading/${id}/${readingsInterval}`, {
 			method: "GET",
@@ -65,7 +21,7 @@ function Sensor(props) {
 		})
 			.then((response) => response.json())
 			.then((data) => {
-				validateData(data);
+				setAir(validateData(data, isActive));
 			});
 	};
 
@@ -95,6 +51,33 @@ function Sensor(props) {
 							ppm CO<sub>2</sub>
 						</span>
 					</div>
+				</Col>
+			</Row>
+			<Row className="mt-2">
+				<Col>
+					<Line
+						data={{
+							labels: air.labels,
+							datasets: [
+								{
+									label: "ppm CO2",
+									data: air.data,
+									borderColor: "rgb(255, 99, 132)",
+									backgroundColor: "rgba(255, 99, 132, 0.5)",
+								},
+							],
+						}}
+						options={{
+							plugins: { legend: { display: false } },
+							scales: {
+								yAxes: {
+									type: "linear",
+									suggestedMin: 0,
+									suggestedMax: 4000,
+								},
+							},
+						}}
+					/>
 				</Col>
 			</Row>
 		</div>
