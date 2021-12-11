@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { refreshTime, apiUrl, apiHeader } from "./settings";
+import { refreshTime, readingsInterval, apiUrl, apiHeader } from "./settings";
 import { Row, Col } from "react-bootstrap";
 import "./Sensor.css";
 
 function Sensor(props) {
-	// const [readings, setReadings] = useState([]);
 	const [air, setAir] = useState({
 		class: "air-error",
 		quality: "Nie aktywny",
@@ -33,7 +32,12 @@ function Sensor(props) {
 			};
 		} else {
 			const qualities = fetchedData.map((read) => read.quality);
-			const times = fetchedData.map((read) => read.date);
+			const times = fetchedData.map((read) =>
+				new Date(read.date).toLocaleTimeString(["pl"], {
+					hour: "2-digit",
+					minute: "2-digit",
+				})
+			);
 
 			tempAir = {
 				class: "air-ok",
@@ -50,12 +54,12 @@ function Sensor(props) {
 			}
 		}
 
+		console.log(tempAir);
 		setAir(tempAir);
 	};
 
 	const fetchData = () => {
-		console.log(`${apiUrl}/reading/${id}`);
-		fetch(`${apiUrl}/reading/${id}`, {
+		fetch(`${apiUrl}/reading/${id}/${readingsInterval}`, {
 			method: "GET",
 			headers: apiHeader,
 		})
