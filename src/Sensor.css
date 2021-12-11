@@ -1,0 +1,42 @@
+h3 {
+	font-size: 1.25rem;
+	margin: 0.25rem 0 !important;
+	/* vertical-align: middle; */
+}
+
+.air-error {
+	border: 0.25rem solid var(--bs-danger);
+}
+
+.air-ok {
+	border: 0.25rem solid var(--bs-success);
+	background-color: var(--bs-success);
+}
+
+.air-warn {
+	border: 0.25rem solid var(--bs-warning);
+	background-color: var(--bs-warning);
+}
+
+.air-danger {
+	border: 0.25rem solid var(--bs-danger);
+	background-color: var(--bs-danger);
+}
+
+.air-danger,
+.air-error,
+.air-warn,
+.air-ok {
+	border-radius: 2rem;
+	padding: 0.25rem 1rem;
+}
+
+.sensor {
+	margin: 0.5rem;
+}
+
+.name {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}

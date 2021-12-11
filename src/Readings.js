@@ -22,7 +22,7 @@ function Readings() {
 	if (loading) return <div>Ładowanie danych</div>;
 
 	return (
-		<div>
+		<div className="py-2">
 			<Row>
 				{sensors.map((sensor) => (
 					<Col key={sensor.id} xs="12" md="6">
