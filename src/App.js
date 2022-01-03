@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Container, Navbar, Nav } from "react-bootstrap";
 import logo from "./logo.svg";
 import Readings from "./Readings";
+import About from "./About";
 
 function App() {
 	return (
@@ -27,7 +28,7 @@ function App() {
 
 					<Routes>
 						<Route path="/" element={<Readings />} />
-						<Route path="/about" element={<Readings />} />
+						<Route path="/about" element={<About />} />
 						<Route path="/admin" element={<Readings />} />
 					</Routes>
 				</Container>
