@@ -4,6 +4,7 @@ import { Container, Navbar, Nav } from "react-bootstrap";
 import logo from "./logo.svg";
 import Readings from "./Readings";
 import About from "./About";
+import Admin from "./admin";
 
 function App() {
 	return (
@@ -29,7 +30,7 @@ function App() {
 					<Routes>
 						<Route path="/" element={<Readings />} />
 						<Route path="/about" element={<About />} />
-						<Route path="/admin" element={<Readings />} />
+						<Route path="/admin" element={<Admin />} />
 					</Routes>
 				</Container>
 			</div>
