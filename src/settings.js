@@ -1,4 +1,4 @@
-export const apiUrl = "http://192.168.0.10:8080/api/v1";
+export const apiUrl = "http://localhost:8080/api/v1"; // "http://192.168.0.10:8080/api/v1";
 export const apiHeader = {
 	Accept: "application/json",
 	"Content-Type": "application/json",
@@ -10,4 +10,4 @@ export const readingsInterval = 15; //interval of reading in which readings were
 export const warnLevel = 800;
 export const dangerLevel = 1000;
 
-// export const lineChartOptions =
+export const accessTimeForAdmin = 1 / 12; // Integer number means numbers of days. For example 1 / 12 means 1 hour

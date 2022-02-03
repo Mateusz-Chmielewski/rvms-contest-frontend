@@ -4,16 +4,8 @@ import LoginForm from "./LoginForm";
 
 function AdminPage() {
 	const [loginToken, setLoginToken] = useState(Cookies.get("loginToken"));
-	const [formContent, setFormContent] = useState({
-		username: "",
-		password: "",
-	});
 
-	const handleSubmit = (event) => {
-		event.preventDefault();
-	};
-
-	return <div>{loginToken ? "OK" : <LoginForm />}</div>;
+	return <div>{loginToken ? "OK" : <LoginForm setLoginToken />}</div>;
 }
 
 export default AdminPage;
