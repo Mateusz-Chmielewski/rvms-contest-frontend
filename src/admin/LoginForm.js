@@ -23,7 +23,7 @@ function LoginForm({ setLoginToken }) {
 			});
 		});
 
-		event.preventDefault();
+		// event.preventDefault();
 	};
 
 	return (
