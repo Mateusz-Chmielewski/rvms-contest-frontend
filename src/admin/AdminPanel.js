@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { apiUrl, apiHeader } from "./../settings";
 import { Row, Col, Button } from "react-bootstrap";
 import SensorForm from "./SensorForm";
+import Cookies from "js-cookie";
 
 function AdminPanel() {
 	const [sensors, setSensors] = useState([]);
@@ -23,7 +24,15 @@ function AdminPanel() {
 
 	return (
 		<div className="py-3">
-			<Button variant="danger">Wyloguj się</Button>
+			<Button
+				variant="danger"
+				onClick={() => {
+					Cookies.remove("loginToken");
+					window.location.reload(false);
+				}}
+			>
+				Wyloguj się
+			</Button>
 			<Row className="py-2">
 				{sensors.map((sensor) => (
 					<Col key={sensor.id} xs="12">

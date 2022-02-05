@@ -6,7 +6,7 @@ import AdminPanel from "./AdminPanel";
 function AdminPage() {
 	const [loginToken, setLoginToken] = useState(Cookies.get("loginToken"));
 
-	return <div>{loginToken ? <AdminPanel /> : <LoginForm setLoginToken />}</div>;
+	return <div>{loginToken ? <AdminPanel /> : <LoginForm />}</div>;
 }
 
 export default AdminPage;
