@@ -18,7 +18,7 @@ function LoginForm({ setLoginToken }) {
 			headers: apiHeader,
 			body: user,
 		}).then((response) => {
-			Cookies.set("loginToken", response.status == 200 ? user : "", {
+			Cookies.set("loginToken", response.status === 200 ? user : "", {
 				expires: 1 / 12,
 			});
 		});
