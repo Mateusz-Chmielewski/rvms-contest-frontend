@@ -23,13 +23,14 @@ function LoginForm({ setLoginToken }) {
 			});
 		});
 
-		// event.preventDefault();
+		window.location.reload(false);
+		event.preventDefault();
 	};
 
 	return (
 		<div className="form-container">
 			<h1>Logowanie do panelu administracyjnego</h1>
-			<Form onSubmit={handleSubmit}>
+			<Form onSubmit={handleSubmit} method="post">
 				<Form.Group className="mt-4">
 					<Form.Label>Login</Form.Label>
 					<Form.Control type="text" placeholder="Login" name="username" />

@@ -7,8 +7,9 @@ import Cookies from "js-cookie";
 function AdminPanel() {
 	const [sensors, setSensors] = useState([]);
 	const [loading, setLoading] = useState(true);
+	const [rerender, setRerender] = useState(true);
 
-	useEffect(() => {
+	const getSensors = () => {
 		fetch(`${apiUrl}/sensor`, {
 			method: "GET",
 			headers: apiHeader,
@@ -18,7 +19,9 @@ function AdminPanel() {
 				setLoading(false);
 				setSensors(data);
 			});
-	}, []);
+	};
+
+	useEffect(getSensors, []);
 
 	if (loading) return <div>Ładowanie danych</div>;
 
@@ -36,7 +39,14 @@ function AdminPanel() {
 			<Row className="py-2">
 				{sensors.map((sensor) => (
 					<Col key={sensor.id} xs="12">
-						<SensorForm key={sensor.id} {...sensor} />
+						<SensorForm
+							key={sensor.id}
+							{...sensor}
+							rerender={() => {
+								getSensors();
+								setRerender(true);
+							}}
+						/>
 					</Col>
 				))}
 			</Row>

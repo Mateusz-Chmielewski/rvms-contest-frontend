@@ -1,9 +1,11 @@
 import React from "react";
 import { useState } from "react";
 import { Form, Row, Col, Button } from "react-bootstrap";
+import { apiUrl, apiHeader } from "./../settings";
 
 function SensorForm(props) {
-	const { ipAddress, roomName, isActive } = props;
+	console.log(props);
+	const { id, ipAddress, roomName, isActive, rerender } = props;
 	const [editable, setEditable] = useState(true);
 
 	return (
@@ -19,7 +21,7 @@ function SensorForm(props) {
 					/>
 				</Form.Group>
 				<Form.Group as={Col}>
-					<Form.Label>Sala</Form.Label>
+					<Form.Label>Opis</Form.Label>
 					<Form.Control
 						type="text"
 						placeholder="Sala 1"
@@ -35,7 +37,19 @@ function SensorForm(props) {
 				</Col>
 				<Col xs="auto">
 					<Form.Label>Aktywny</Form.Label>
-					<Form.Check type="switch" checked={isActive} />
+					<Form.Check
+						type="switch"
+						checked={isActive}
+						onChange={() => {
+							fetch(`${apiUrl}/sensor/active/${id}`, {
+								method: "POST",
+								headers: apiHeader,
+								body: JSON.stringify({ isActive: !isActive }),
+							}).then((response) => {
+								rerender();
+							});
+						}}
+					/>
 				</Col>
 			</Row>
 		</Form>
