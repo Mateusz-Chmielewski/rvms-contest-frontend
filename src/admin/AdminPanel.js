@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { apiUrl, apiHeader } from "./../settings";
-import { Row, Col, Button } from "react-bootstrap";
+import { Row, Col, Button, Form } from "react-bootstrap";
 import SensorForm from "./SensorForm";
 import Cookies from "js-cookie";
 
@@ -22,6 +22,21 @@ function AdminPanel() {
 	};
 
 	useEffect(getSensors, []);
+
+	const addNew = (event) => {
+		const form = event.target;
+		const sensor = {
+			ipAddress: form.ipAddress.value,
+			roomName: form.roomName.value,
+			isActive: form.isActive.checked,
+		};
+
+		fetch(`${apiUrl}/sensor`, {
+			method: "POST",
+			headers: apiHeader,
+			body: JSON.stringify(sensor),
+		});
+	};
 
 	if (loading) return <div>Ładowanie danych</div>;
 
@@ -50,7 +65,36 @@ function AdminPanel() {
 					</Col>
 				))}
 			</Row>
-			<Button variant="primary">Dodaj nowy</Button>
+			<Form className="p-2 mt-5" onSubmit={addNew}>
+				<Row>
+					<Form.Group as={Col}>
+						<Form.Label>Adres IP</Form.Label>
+						<Form.Control
+							name="ipAddress"
+							type="text"
+							placeholder="127.0.0.1"
+						/>
+					</Form.Group>
+					<Form.Group as={Col}>
+						<Form.Label>Opis</Form.Label>
+						<Form.Control name="roomName" type="text" placeholder="Sala 1" />
+					</Form.Group>
+					<Col xs="auto">
+						<Form.Label>Aktywny</Form.Label>
+						<Form.Check name="isActive" type="switch" />
+					</Col>
+					<Col xs="auto" className="d-flex align-items-center">
+						<Button type="submit" variant="success">
+							Dodaj
+						</Button>
+					</Col>
+					<Col xs="auto" className="d-flex align-items-center">
+						<Button type="reset" variant="secondary">
+							Anuluj
+						</Button>
+					</Col>
+				</Row>
+			</Form>
 		</div>
 	);
 }
