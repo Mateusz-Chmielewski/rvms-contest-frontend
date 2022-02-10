@@ -28,6 +28,20 @@ function SensorForm(props) {
 		});
 	};
 
+	const deleteSensor = () => {
+		if (!window.confirm("Czy na pewno chcesz usunąć ten czujnik? ")) {
+			return;
+		}
+
+		fetch(`${apiUrl}/sensor/${id}`, {
+			method: "DELETE",
+			headers: apiHeader,
+			body: JSON.stringify(sensorState),
+		}).then((response) => {
+			rerender();
+		});
+	};
+
 	const save = () => {
 		fetch(`${apiUrl}/sensor/describe/${id}`, {
 			method: "POST",
@@ -81,7 +95,9 @@ function SensorForm(props) {
 							Anuluj
 						</Button>
 					) : (
-						<Button variant="danger">Usuń</Button>
+						<Button variant="danger" onClick={deleteSensor}>
+							Usuń
+						</Button>
 					)}
 				</Col>
 				<Col xs="auto">
