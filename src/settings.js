@@ -1,4 +1,4 @@
-export const apiUrl = "http://10.10.10.23:8080/api/v1"; // "http://192.168.0.10:8080/api/v1";
+export const apiUrl = "http://192.168.1.100:8080/api/v1"; // "http://192.168.0.10:8080/api/v1";
 export const apiHeader = {
 	Accept: "application/json",
 	"Content-Type": "application/json",
