@@ -3,14 +3,15 @@ import React from "react";
 import { Button, Form } from "react-bootstrap";
 import { apiUrl, apiHeader } from "./../settings";
 import "./LoginForm.css";
+import { get256Hash } from "./../functions/hashing";
 
 function LoginForm({ setLoginToken }) {
 	const handleSubmit = (event) => {
 		const username = event.target.username.value;
 		const password = event.target.password.value;
 		const user = JSON.stringify({
-			username: username,
-			password: password,
+			username: get256Hash(username),
+			password: get256Hash(password),
 		});
 
 		fetch(`${apiUrl}/auth/login`, {
