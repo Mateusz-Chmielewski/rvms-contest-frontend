@@ -1,7 +1,7 @@
 export const apiUrl = "http://localhost:8080/api/v1"; // "http://192.168.0.10:8080/api/v1";
 export const apiHeader = {
-	Accept: "application/json",
-	"Content-Type": "application/json",
+  Accept: "application/json",
+  "Content-Type": "application/json",
 };
 
 export const refreshTime = 30; //frequency of refreshing data in seconds
