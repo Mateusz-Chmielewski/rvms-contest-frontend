@@ -1,6 +1,9 @@
 # RVMS (Room Ventilation Monitoring System) - Web Application
 
-![laptop](images/laptop_view.png){.some} ![mobile](images/phone_view.png)
+<center>
+    <img src="images/laptop_view.png" alt="laptop" height="300">
+    <img src="images/phone_view.png" alt="mobile" height="300">
+</center>
 
 ## Available Scripts
 
@@ -25,10 +28,3 @@ The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-<style>
-    .some {
-        height: 10px;
-    }
-
-</style>
