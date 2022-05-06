@@ -1,9 +1,8 @@
 # RVMS (Room Ventilation Monitoring System) - Web Application
 
-<center>
-    <img src="images/laptop_view.png" alt="laptop" height="300">
-    <img src="images/phone_view.png" alt="mobile" height="300">
-</center>
+<p align="center">
+<img src="images/laptop_view.png" alt="laptop" height="300">   <img src="images/phone_view.png" alt="mobile" height="300">
+</p>
 
 ## Available Scripts
 
